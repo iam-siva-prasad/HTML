@@ -20,10 +20,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Azure Login (Publish Profile)
+      - name: Azure Login (Service Principal)
         uses: azure/login@v2
         with:
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          auth-type: SERVICE_PRINCIPAL
+        env:
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
       - name: Deploy HTML to STAGING slot
         uses: azure/webapps-deploy@v3
