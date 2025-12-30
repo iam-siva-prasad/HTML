@@ -1,0 +1,57 @@
+
+name: App Service Blue-Green (Slots)
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  id-token: write   # required for OIDC
+  contents: read
+
+env:
+  AZURE_RESOURCE_GROUP: rg-yourapp
+  AZURE_WEBAPP_NAME: yourapp-prod           # the App Service name (production slot)
+  STAGING_SLOT: staging
+
+jobs:
+  deploy-to-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      # For static HTML, we can deploy the folder directly
+      - name: Deploy HTML to STAGING slot
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          slot-name: ${{ env.STAGING_SLOT }}
+          package: '.'                       # deploy repository root (contains index.html)
+
+      # Optional: health check before swap
+      - name: Wait for health (STAGING)
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            # Replace with your health URL if any (e.g., /healthz)
+            echo "Hit staging health endpoint before swap"
+            # curl -f https://${{ env.AZURE_WEBAPP_NAME }}-${{ env.STAGING_SLOT }}.azurewebsites.net/healthz
+
+      - name: Swap STAGING -> PRODUCTION
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az webapp deployment slot swap \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --name ${{ env.AZURE_WEBAPP_NAME }} \
+              --slot ${{ env.STAGING_SLOT }} \
+              --target-slot production
