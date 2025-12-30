@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: read   # REMOVE id-token: write (only needed for OIDC)
 
 env:
   AZURE_RESOURCE_GROUP: 1-35d212df-playground-sandbox
