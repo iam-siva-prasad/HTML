@@ -1,5 +1,5 @@
 
-name: App Service Blue-Green (Slots) - SPN Auth
+name: App Service Blue-Green (Slots) - Service Principal
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: read   # No id-token here (OIDC removed)
 
 env:
   AZURE_RESOURCE_GROUP: 1-35d212df-playground-sandbox
@@ -15,11 +15,13 @@ env:
   STAGING_SLOT: staging
 
 jobs:
-  deploy-to-staging:
+  deploy-and-swap:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout code
       - uses: actions/checkout@v4
 
+      # Step 2: Azure Login using Service Principal
       - name: Azure Login (Service Principal)
         uses: azure/login@v2
         with:
@@ -30,6 +32,7 @@ jobs:
         env:
           AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
 
+      # Step 3: Deploy HTML to STAGING slot
       - name: Deploy HTML to STAGING slot
         uses: azure/webapps-deploy@v3
         with:
@@ -37,6 +40,12 @@ jobs:
           slot-name: ${{ env.STAGING_SLOT }}
           package: '.'
 
+      # Step 4: Health check before swap (optional)
+      - name: Health Check STAGING
+        run: |
+          curl -f https://${{ env.AZURE_WEBAPP_NAME }}-${{ env.STAGING_SLOT }}.azurewebsites.net || exit 1
+
+      # Step 5: Swap STAGING -> PRODUCTION
       - name: Swap STAGING -> PRODUCTION
         uses: azure/cli@v2
         with:
