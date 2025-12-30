@@ -1,5 +1,5 @@
 
-name: App Service Blue-Green (Slots)
+name: App Service Blue-Green (Slots) - SPN Auth
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read   # REMOVE id-token: write (only needed for OIDC)
+  contents: read
 
 env:
   AZURE_RESOURCE_GROUP: 1-35d212df-playground-sandbox
@@ -15,7 +15,7 @@ env:
   STAGING_SLOT: staging
 
 jobs:
-  deploy-and-swap:
+  deploy-to-staging:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
