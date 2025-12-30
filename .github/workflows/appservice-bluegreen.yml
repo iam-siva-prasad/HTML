@@ -11,8 +11,8 @@ permissions:
   contents: read
 
 env:
-  AZURE_RESOURCE_GROUP: rg-yourapp
-  AZURE_WEBAPP_NAME: yourapp-prod           # the App Service name (production slot)
+  AZURE_RESOURCE_GROUP: 1-35d212df-playground-sandbox
+  AZURE_WEBAPP_NAME: 30122025           # the App Service name (production slot)
   STAGING_SLOT: staging
 
 jobs:
