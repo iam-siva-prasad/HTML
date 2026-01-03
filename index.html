@@ -1,0 +1,74 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Siva's DevOps Site – Home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preconnect" href="https://api.open-meteo.com" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body class="theme-light">
+  <header class="nav">
+    <div class="nav__brand">Siva's DevOps </div>
+    <nav class="nav__links">
+      <a href="index.html" class="active">Home</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="themeToggle" class="btn btn--ghost">🌙 Dark Mode</button>
+  </header>
+
+   <section class="hero">
+    <h1 class="hero__title" style="color: deepskyblue;"> Containerized Website for Docker &amp; Kubernetes </h1>
+    <p class="hero__subtitle">Developed by <strong>| Mr. Siva Prasad Goli </strong>| Built with HTML, CSS, JS – perfect for DevOps practice.</p>
+    <div class="hero__actions">
+      <a href="features.html" class="btn btn--primary">Explore Features →</a>
+      <!-- UPDATED: Open your GitHub repo in a new tab safely -->
+      <a href="https://github.com/iam-siva-prasad/DevOps-Web"
+         class="btn btn--ghost"
+         target="_blank"
+         rel="noopener noreferrer">View Repo</a>
+    </div>
+  </section>
+
+  <section class="grid">
+    <article class="card fade-in">
+      <h3>Live Temperature Widget</h3>
+      <p>Gets your location (or uses Nellore) and shows current temperature.</p>
+      <div id="tempWidget" class="temp">
+        <div class="temp__controls">
+          <button id="refreshTemp" class="btn btn--ghost">↻ Refresh</button>
+          <button id="toggleUnit" class="btn btn--ghost">°C / °F</button>
+        </div>
+        <div class="temp__reading">
+          <span id="tempValue" class="temp__value">--</span>
+          <span id="tempUnit" class="temp__unit">°C</span>
+        </div>
+        <div id="tempStatus" class="temp__status">Initializing…</div>
+        <div id="tempSpinner" class="spinner" hidden></div>
+      </div>
+    </article>
+
+    <article class="card fade-in">
+      <h3>Animated UI</h3>
+      <p>CSS transitions, gradient text animation, button hover effects.</p>
+      <button class="btn btn--primary wiggle">Try Me</button>
+    </article>
+
+    <article class="card fade-in">
+      <h3>Redirects & Nav</h3>
+      <p>Multi-page navigation and buttons to internal & external links.</p>
+      <div class="stack">
+        <a href="features.html" class="btn btn--secondary">Go to Features</a>
+        <a href="contact.html" class="btn btn--ghost">Contact Us</a>
+      </div>
+    </article>
+  </section>
+
+  <footer class="footer">
+    <small>© 2025 Siva's DevOps All Rights Reserved </small>
+  </footer>
+</body>
+</html>

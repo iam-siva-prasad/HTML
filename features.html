@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Siva's DevOps Site – Features</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/app.js" defer></script>
+</head>
+<body class="theme-light">
+  <header class="nav">
+    <div class="nav__brand">Siva's DevOps </div>
+    <nav class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <button id="themeToggle" class="btn btn--ghost">🌙 Features Dark Mode</button>
+  </header>
+
+  
+  <main class="content">
+   <h1 class="hero__title" style="color: deepskyblue;"> Features </h1>
+    <div class="features grid">
+      <article class="card">
+        <h3>Dark/Light Theme</h3>
+        <p>Persisted via localStorage; toggles instantly.</p>
+      </article>
+      <article class="card">
+        <h3>Responsive Layout</h3>
+        <p>Mobile-first grid and accessible components.</p>
+      </article>
+      <article class="card">
+        <h3>Temperature Widget</h3>
+        <p>Uses Geolocation + Open-Meteo API with graceful fallback.</p>
+      </article>
+      <article class="card">
+        <h3>Container-Ready</h3>
+        <p>Served by Nginx in Docker; K8s manifests provided.</p>
+      </article>
+    </div>
+
+    <div class="cta">
+      <a href="index.html" class="btn btn--ghost">← Back to Home</a>
+      <a href="contact.html" class="btn btn--secondary">Contact Us</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <small>© 2025 Siva's DevOps All Rights Reserved </small>
+  </footer>
+</body>
+</html>

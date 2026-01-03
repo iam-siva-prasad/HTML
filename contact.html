@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Siva's DevOps Website – Contact</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="assets/styles.css" />
+  <!-- Keep your site JS; we also add a small inline handler for the form -->
+  <script src="assets/app.js" defer></script>
+</head>
+<body class="theme-light">
+  <header class="nav">
+    <div class="nav__brand">Siva's DevOps</div>
+    <nav class="nav__links">
+      <a href="index.html">Home</a>
+      <a href="features.html">Features</a>
+      <a href="contact.html" class="active">Contact</a>
+    </nav>
+    <button id="themeToggle" class="btn btn--ghost">🌙 Dark Mode</button>
+  </header>
+
+  <main class="content">
+    <h1 class="animate-gradient">Contact Us On </h1>
+    <!-- <h1 class="hero__title" style="color: deepskyblue;"> Our Official Profiles </h1> -->
+    <!-- <h1 class="animate-gradient">Our Official Profiles</h1> -->
+
+      <!-- GitHub -->
+<a href="https://github.com/iam-siva-prasad"
+   class="btn">
+  GitHub
+</a>
+    
+    <!-- Linkedin -->
+<a href="https://www.linkedin.com/in/iam-siva-prasad/"
+   class="btn">
+  Linkedin
+</a>
+
+<!-- Email button -->
+<a href="mailto:golisiva50@gmail.com?subject=Support%20Request&body=Dear Sir%0A%0A"
+   class="btn">
+  Email Us
+</a>
+    
+    <h1 class="hero__title" style="color: deepskyblue;"> Contact </h1>
+    <!-- <h1 class="animate-gradient">Contact</h1> -->
+    <p>Send us a message—we’ll receive it by email instantly.</p>
+
+    <!-- FormSubmit integration: we will POST via fetch() (AJAX) -->
+    <form id="contactForm" action="https://formsubmit.co/550759a14c30bb54be706e959e6c042b" method="POST" class="form card" novalidate>
+      <!-- Form fields MUST have name attributes -->
+      <label>
+        Name
+        <input type="text" name="name" placeholder="Your name" required />
+      </label>
+
+      <label>
+        Phone
+        <input type="phone" name="phone" placeholder="Your Mobile Number" required />
+      </label>
+
+      <label>
+        Email
+        <input type="email" name="email" placeholder="you@example.com" required />
+      </label>
+
+      <label>
+        Message
+        <textarea name="message" rows="5" placeholder="Type your message..." required></textarea>
+      </label>
+
+      <!-- Hidden fields for customization -->
+      <input type="hidden" name="_subject" value="New message from Siva's DevOps Contact Form">
+      <!-- IMPORTANT for AJAX: either disable FormSubmit reCAPTCHA or provide your own keys -->
+      <input type="hidden" name="_captcha" value="false">
+      <!-- Honeypot anti-spam -->
+      <input type="text" name="_honey" style="display:none">
+
+      <button type="submit" class="btn btn--primary">Send</button>
+
+      <!-- Status area (we will show success message here) -->
+      <div id="formStatus" class="form__status" aria-live="polite"></div>
+    </form>
+
+    <div class="cta">
+      <a href="index.html" class="btn btn--ghost">← Back to Home</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <small>golisiva50@gmail.com</small>
+    <small>                           </small>
+    <small> 2026 © iamsivaprasad DevOps All Rights Reserved. </small>
+  </footer>
+
+  <!-- Inline script to handle AJAX submit, show message, and redirect -->
+  <script>
+    (function () {
+      const form = document.getElementById('contactForm');
+      const statusEl = document.getElementById('formStatus');
+      const redirectUrl = 'index.html';            // <-- Redirect destination (home page)
+      const successMsg  = 'Your response has been successfully submitted.'; // Message
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault(); // prevent full page navigation
+        statusEl.textContent = 'Sending...';
+
+        try {
+          const formData = new FormData(form);
+          // Submit via fetch (AJAX) to FormSubmit endpoint
+          const res = await fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' } // Ask for JSON response
+          });
+
+          if (res.ok) {
+            // Show success message and clear the form
+            statusEl.textContent = successMsg;
+            form.reset();
+            // Redirect after 2.5 seconds (adjust as you like)
+            setTimeout(() => {
+              window.location.href = redirectUrl;
+            }, 2500);
+          } else {
+            // If FormSubmit returns non-200, show a fallback message
+            statusEl.textContent = 'There was a problem submitting the form. Please try again.';
+          }
+        } catch (err) {
+          statusEl.textContent = 'Network error. Please check your connection and try again.';
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
